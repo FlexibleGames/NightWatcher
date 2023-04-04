@@ -1,0 +1,32 @@
+{
+	code: "nightwatcher",
+	class: "NightWatcherEntity",
+	hitboxSize: { x: 0.7, y: 2 },
+	eyeHeight: 1.8,
+	knockbackResistance: 1,
+	attributes: {
+		spawnDamageParticles: false
+	},
+	client: {
+		renderer: "Shape",
+		shape: { base: "game:entity/nightwatcher" },
+		behaviors: [			
+			{ code: "controlledphysics", stepHeight: 1.1251 }, 
+			{ code: "interpolateposition" }
+		],
+		animations: [
+			{ 
+				code: "idle", 
+				animation: "LookAround",
+				blendMode: "Average", 
+				triggeredBy: { defaultAnim: true },
+			}
+		],
+	},
+	server: {
+		behaviors: [			
+			{ code: "controlledphysics", stepHeight: 1.1251 },
+			{ code: "health", currenthealth: 400, maxhealth: 400 }, 
+		]
+	}
+}

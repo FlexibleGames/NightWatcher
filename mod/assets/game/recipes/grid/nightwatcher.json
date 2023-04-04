@@ -1,0 +1,13 @@
+[
+	{
+		ingredientPattern: "T	S	P",
+		ingredients: {
+			"T": { type: "item", code: "game:gear-temporal" },
+			"S": { type: "item", code: "game:strawdummy" },
+			"P": { type: "item", code: "game:metalplate-gold" }
+		},
+		width: 1,
+		height: 3,
+		output: { type: "item", code: "game:nightwatcher", quantity: 1  }
+	}
+]

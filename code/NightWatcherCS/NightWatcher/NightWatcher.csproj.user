@@ -3,7 +3,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
     <StartProgram>C:\Users\simtr\AppData\Roaming\Vintagestory\Vintagestory.exe</StartProgram>
-    <StartArguments>-openWorld="nwmodtest" --addModPath "C:\_Programming\Vintage\NightWatcher\mod"</StartArguments>
+    <StartArguments>-o modtestworld --addModPath "C:\_Programming\Vintage\NightWatcher"</StartArguments>
     <StartWorkingDirectory>C:\Users\simtr\AppData\Roaming\Vintagestory\</StartWorkingDirectory>
   </PropertyGroup>
 </Project>

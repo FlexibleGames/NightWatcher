@@ -55,6 +55,14 @@ namespace NightWatcher
                     return false;
                 }
             }
+            if (NightWatcher.NWConfig.BlockBears && entityProperties.Code.Path.StartsWithFast("bear"))
+            {
+                double distance = this.ServerPos.DistanceTo(spawnPosition);
+                if (distance <= NightWatcher.NWConfig.EffectRadius)
+                {
+                    return false;
+                }
+            }
 
             if (NightWatcher.NWConfig.BlockDrifters && entityProperties.Code.Path.StartsWithFast("drifter"))
             {

@@ -6,6 +6,7 @@ namespace NightWatcher
     {
         public int EffectRadius = 64;
         public bool BlockWolves = false;
+        public bool BlockBears = false;
         public bool BlockDrifters = true;
         public bool BlockDuringStorm = false;
         public NightWatcherConfig()
@@ -13,6 +14,7 @@ namespace NightWatcher
             // default radius..
             EffectRadius = 64;
             BlockWolves = false;
+            BlockBears = false;
             BlockDrifters = true;
             BlockDuringStorm = false;
         }

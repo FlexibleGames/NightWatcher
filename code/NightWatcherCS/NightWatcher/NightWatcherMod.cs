@@ -29,7 +29,15 @@ namespace NightWatcher
 
         public override void StartServerSide(ICoreServerAPI api)
         {
-            NightWatcherConfig watcherConfig = api.LoadModConfig<NightWatcherConfig>("watcher_config.json");
+            NightWatcherConfig watcherConfig = null;
+            try
+            {
+                watcherConfig = api.LoadModConfig<NightWatcherConfig>("watcher_config.json");
+            }
+            catch (Exception e)
+            {
+
+            }
             if (watcherConfig == null)
             {
                 base.Mod.Logger.Warning("Regenerating default config as it was missing or broken...");

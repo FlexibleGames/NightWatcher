@@ -8,13 +8,13 @@
 	"textureSizes": {
 	},
 	"textures": {
-		"gold": "game:item/resource/plate/gold",
-		"face": "game:block/strawdummy/face",
-		"tinbronze": "game:entity/humanoid/serapharmor/scale/tinbronze",
-		"agedwood": "game:block/strawdummy/agedwood",
-		"bamboo-side": "game:block/hay/bamboo-side",
-		"bamboo-top": "game:block/hay/bamboo-top"
-	},
+        "gold": "game:item/resource/plate/gold",
+        "face": "game:block/hay/strawdummy/face",
+        "tinbronze": "game:entity/humanoid/serapharmor/scale/tinbronze",
+        "agedwood": "game:block/hay/strawdummy/agedwood",
+        "bamboo-side": "game:block/hay/bamboo-side",
+        "bamboo-top": "game:block/hay/bamboo-top"
+    },
 	"elements": [
 		{
 			"name": "stick",

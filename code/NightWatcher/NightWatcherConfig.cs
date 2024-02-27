@@ -12,10 +12,7 @@ namespace NightWatcher
         public NightWatcherConfig()
         {
             // default radius..
-            EffectRadius = 64;
-            BlockCodes.Add("drifter");
-            BlockCodes.Add("bear");
-            BlockCodes.Add("wolf");
+            EffectRadius = 128;            
             BlockDrifters = true;
             BlockDuringStorm = false;
         }

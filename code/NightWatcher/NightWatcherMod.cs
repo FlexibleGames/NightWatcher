@@ -41,7 +41,11 @@ namespace NightWatcher
             if (watcherConfig == null)
             {
                 base.Mod.Logger.Warning("Regenerating default config as it was missing or broken...");
-                api.StoreModConfig<NightWatcherConfig>(new NightWatcherConfig(), "watcher_config.json");
+                NightWatcherConfig nwc = new NightWatcherConfig();
+                nwc.BlockCodes.Add("drifter");
+                nwc.BlockCodes.Add("bear");
+                nwc.BlockCodes.Add("wolf");
+                api.StoreModConfig<NightWatcherConfig>(nwc, "watcher_config.json");
                 watcherConfig = api.LoadModConfig<NightWatcherConfig>("watcher_config.json");
             }
             this.NWConfig = watcherConfig;

@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "NightWatcher/1.6": {
+      "NightWatcher/1.7": {
         "runtime": {
           "NightWatcher.dll": {}
         }
@@ -14,7 +14,7 @@
     }
   },
   "libraries": {
-    "NightWatcher/1.6": {
+    "NightWatcher/1.7": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

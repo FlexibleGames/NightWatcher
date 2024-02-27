@@ -50,10 +50,13 @@ namespace NightWatcher
             if (NightWatcher.NWConfig.BlockCodes.Contains(entityProperties.Code.FirstCodePart()))
             {
                 bool storming = this.Api.ModLoader.GetModSystem<SystemTemporalStability>().StormData.nowStormActive;
-                bool stormblock = NightWatcher.NWConfig.BlockDuringStorm ? storming : false;
+                bool stormblock = NightWatcher.NWConfig.BlockDuringStorm;
+
+                bool doblock = true;
+                if (storming && !stormblock) { doblock = false; }
 
                 double distance = this.ServerPos.DistanceTo(spawnPosition);
-                if (distance <= NightWatcher.NWConfig.EffectRadius && stormblock)
+                if (distance <= NightWatcher.NWConfig.EffectRadius && doblock)
                 {
                     return false;
                 }

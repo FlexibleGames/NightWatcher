@@ -41,7 +41,7 @@ namespace NightWatcher
                 entity.Pos.SetFrom(entity.ServerPos);
                 byEntity.World.PlaySoundAt(new AssetLocation("sounds/block/torch"), entity, player, true, 32f, 1f);
                 byEntity.World.SpawnEntity(entity);
-                handling = EnumHandHandling.PreventDefaultAction;
+                handling = EnumHandHandling.PreventDefaultAction;                
             }            
         }
 

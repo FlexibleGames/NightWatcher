@@ -3,8 +3,8 @@
   "modid": "nightwatcher",
   "name": "The Night Watcher",
   "authors": [ "Flexible Games" ],
-  "description": "Prevents entity spawns in a configurable radius.",
+  "description": "Prevents entity and rift spawns in a configurable radius.",
   "website": "https://www.youtube.com/c/FlexibleGames",  
-  "version": "1.8.0",
+  "version": "2.0.0",
   "dependency": {}
 }

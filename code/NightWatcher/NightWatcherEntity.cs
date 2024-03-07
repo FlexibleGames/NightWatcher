@@ -14,6 +14,7 @@ namespace NightWatcher
     public class NightWatcherEntity : EntityHumanoid
     {
         private ICoreServerAPI sapi;
+        private NightWatcherConfig watcher;
 
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
@@ -22,19 +23,31 @@ namespace NightWatcher
             {
                 sapi = api as ICoreServerAPI;
                 sapi.Event.OnTrySpawnEntity += SpawnInterceptor;
+                sapi.ModLoader.GetModSystem<ModSystemRifts>(true).OnTrySpawnRift += OnRiftSpawn;
+                watcher = api.ModLoader.GetModSystem<NightWatcherMod>(true).NWConfig;
             }
             else
             {
                 ICoreClientAPI capi = api as ICoreClientAPI;
                 
-            }
+            }            
         }
 
-        private NightWatcherMod NightWatcher
+        /// <summary>
+        /// Blocks Rifts from spawning (if enabled in config) in the effective radii of the watcher.
+        /// </summary>
+        /// <param name="pos">Position of the potential rift.</param>
+        /// <param name="handling">Set to PreventDefault to block rifts.</param>
+        private void OnRiftSpawn(BlockPos pos, ref EnumHandling handling)
         {
-            get
+            if (watcher.BlockRifts)
             {
-                return this.Api.ModLoader.GetModSystem<NightWatcherMod>();
+                double distance = this.ServerPos.DistanceTo(pos.ToVec3d());
+                if (distance <= watcher.EffectRadius)
+                {
+                    handling = EnumHandling.PreventDefault;
+                    return;
+                }
             }
         }
 
@@ -47,13 +60,15 @@ namespace NightWatcher
         /// <returns></returns>
         public bool SpawnInterceptor(IBlockAccessor blockAccessor, ref EntityProperties entityProperties, Vec3d spawnPosition, long herdId)
         {
-            if (NightWatcher.NWConfig.BlockCodes.Contains(entityProperties.Code.FirstCodePart()))
+            if (watcher.BlockCodes == null || watcher.BlockCodes.Count == 0) return true; // nothing to block
+
+            if (watcher.BlockCodes.Contains(entityProperties.Code.FirstCodePart()))
             {
                 bool storming = this.Api.ModLoader.GetModSystem<SystemTemporalStability>(true).StormData.nowStormActive;
-                bool stormblock = NightWatcher.NWConfig.BlockDuringStorm;
+                bool stormblock = watcher.BlockDuringStorm;
                 if (storming && !stormblock) 
                 { 
-                    if (NightWatcher.NWConfig.DebugOutput)
+                    if (watcher.DebugOutput)
                     {
                         sapi.Logger.Debug($"Nightwatcher: Storm is active, Storm Block is {stormblock}");
                     }
@@ -61,11 +76,11 @@ namespace NightWatcher
                 }
                 
                 double distance = this.ServerPos.DistanceTo(spawnPosition);
-                if (distance <= NightWatcher.NWConfig.EffectRadius)
+                if (distance <= watcher.EffectRadius)
                 {
-                    if (NightWatcher.NWConfig.DebugOutput)
+                    if (watcher.DebugOutput)
                     {
-                        sapi.Logger.Debug($"Nightwatcher: Blocking {entityProperties.Code} at {distance} blocks away.");
+                        sapi.Logger.Debug($"Nightwatcher: Blocking {entityProperties.Code} at {distance:N0} blocks away.");
                     }
                     return false;
                 }
@@ -93,6 +108,7 @@ namespace NightWatcher
                 if (Api.Side == EnumAppSide.Server)
                 {
                     sapi.Event.OnTrySpawnEntity -= SpawnInterceptor;
+                    sapi.ModLoader.GetModSystem<ModSystemRifts>(true).OnTrySpawnRift -= OnRiftSpawn;
                 }
                         
                 this.Die(EnumDespawnReason.Death, null);

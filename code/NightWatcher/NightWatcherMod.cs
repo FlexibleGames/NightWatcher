@@ -34,13 +34,13 @@ namespace NightWatcher
             {
                 watcherConfig = api.LoadModConfig<NightWatcherConfig>("watcher_config.json");
             }
-            catch (Exception e)
+            catch (Exception)
             {
-
+                api.Logger.Warning("NightWatcher: Config Exception! Config will be rebuilt.");
             }
             if (watcherConfig == null)
             {
-                base.Mod.Logger.Warning("Regenerating default config as it was missing or broken...");
+                api.Logger.Warning("NightWatcher: Config Error! A typo or a new config setting can cause this. Config will be rebuilt.");
                 NightWatcherConfig nwc = new NightWatcherConfig();
                 nwc.BlockCodes.Add("drifter");
                 nwc.BlockCodes.Add("bear");

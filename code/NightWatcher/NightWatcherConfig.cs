@@ -9,12 +9,14 @@ namespace NightWatcher
         public List<string> BlockCodes = new List<string>();
         public bool BlockDrifters = true;
         public bool BlockDuringStorm = false;
+        public bool DebugOutput = false;
         public NightWatcherConfig()
         {
             // default radius..
             EffectRadius = 128;            
             BlockDrifters = true;
             BlockDuringStorm = false;
+            DebugOutput = false;
         }
     }
 }

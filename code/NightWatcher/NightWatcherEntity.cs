@@ -49,19 +49,27 @@ namespace NightWatcher
         {
             if (NightWatcher.NWConfig.BlockCodes.Contains(entityProperties.Code.FirstCodePart()))
             {
-                bool storming = this.Api.ModLoader.GetModSystem<SystemTemporalStability>().StormData.nowStormActive;
+                bool storming = this.Api.ModLoader.GetModSystem<SystemTemporalStability>(true).StormData.nowStormActive;
                 bool stormblock = NightWatcher.NWConfig.BlockDuringStorm;
-
-                bool doblock = true;
-                if (storming && !stormblock) { doblock = false; }
-
+                if (storming && !stormblock) 
+                { 
+                    if (NightWatcher.NWConfig.DebugOutput)
+                    {
+                        sapi.Logger.Debug($"Nightwatcher: Storm is active, Storm Block is {stormblock}");
+                    }
+                    return true;
+                }
+                
                 double distance = this.ServerPos.DistanceTo(spawnPosition);
-                if (distance <= NightWatcher.NWConfig.EffectRadius && doblock)
+                if (distance <= NightWatcher.NWConfig.EffectRadius)
                 {
+                    if (NightWatcher.NWConfig.DebugOutput)
+                    {
+                        sapi.Logger.Debug($"Nightwatcher: Blocking {entityProperties.Code} at {distance} blocks away.");
+                    }
                     return false;
                 }
             }
-
             return true;
         }
 

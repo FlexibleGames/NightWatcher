@@ -4,7 +4,7 @@
   "name": "The Night Watcher",
   "authors": [ "Flexible Games" ],
   "description": "Prevents entity and rift spawns in a configurable radius.",
-  "website": "https://www.youtube.com/c/FlexibleGames",  
-  "version": "2.0.0",
+  "website": "https://www.youtube.com/c/FlexibleGames",
+  "version": "2.1.0",
   "dependency": {}
 }

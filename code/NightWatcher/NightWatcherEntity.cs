@@ -23,6 +23,7 @@ namespace NightWatcher
             {
                 sapi = api as ICoreServerAPI;
                 sapi.Event.OnTrySpawnEntity += SpawnInterceptor;
+                sapi.Event.OnEntitySpawn += Event_EntitySpawn;
                 sapi.ModLoader.GetModSystem<ModSystemRifts>(true).OnTrySpawnRift += OnRiftSpawn;
                 watcher = api.ModLoader.GetModSystem<NightWatcherMod>(true).NWConfig;
             }
@@ -31,6 +32,36 @@ namespace NightWatcher
                 ICoreClientAPI capi = api as ICoreClientAPI;
                 
             }            
+        }
+
+        private void Event_EntitySpawn(Entity entity)
+        {
+            if (watcher.BlockCodes == null || watcher.BlockCodes.Count == 0) return; // nothing to block
+
+            if (watcher.BlockCodes.Contains(entity.Code.FirstCodePart()))
+            {
+                bool storming = this.Api.ModLoader.GetModSystem<SystemTemporalStability>(true).StormData.nowStormActive;
+                bool stormblock = watcher.BlockDuringStorm;
+                if (storming && !stormblock)
+                {
+                    if (watcher.DebugOutput)
+                    {
+                        sapi.Logger.Debug($"Nightwatcher: EntitySpawn: Storm is active, Storm Block is {stormblock}");
+                    }
+                    return;
+                }
+
+                double distance = this.ServerPos.DistanceTo(entity.ServerPos);
+                if (distance <= watcher.EffectRadius)
+                {
+                    if (watcher.DebugOutput)
+                    {
+                        sapi.Logger.Debug($"Nightwatcher: EntitySpawn: Blocking {entity.Code} at {distance:N0} blocks away.");
+                    }
+                    entity.Die(EnumDespawnReason.Removed);
+                }
+            }
+            return;
         }
 
         /// <summary>
@@ -108,6 +139,7 @@ namespace NightWatcher
                 if (Api.Side == EnumAppSide.Server)
                 {
                     sapi.Event.OnTrySpawnEntity -= SpawnInterceptor;
+                    sapi.Event.OnEntitySpawn -= Event_EntitySpawn;
                     sapi.ModLoader.GetModSystem<ModSystemRifts>(true).OnTrySpawnRift -= OnRiftSpawn;
                 }
                         

@@ -43,6 +43,12 @@ namespace NightWatcher
                 api.Logger.Warning("NightWatcher: Config Error! A typo or a new config setting can cause this. Config will be rebuilt.");
                 NightWatcherConfig nwc = new NightWatcherConfig();
                 nwc.BlockCodes.Add("drifter");
+                nwc.BlockCodes.Add("bell");
+                nwc.BlockCodes.Add("locust");
+                nwc.BlockCodes.Add("bellmini"); // new in 1.20
+                nwc.BlockCodes.Add("erel"); // new in 1.20
+                nwc.BlockCodes.Add("bowtorn"); // new in 1.20
+                nwc.BlockCodes.Add("shiver"); // new in 1.20
                 nwc.BlockCodes.Add("bear");
                 nwc.BlockCodes.Add("wolf");
                 api.StoreModConfig<NightWatcherConfig>(nwc, "watcher_config.json");
